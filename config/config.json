@@ -1,0 +1,10 @@
+{
+  "server" : {
+    "name" : "moOSQuito server",
+    "port" : 8080
+  },
+  "parse" : {
+    "appId" : "q8aG94t9XIGaCOrhgQmFGfSdzwjLrsJgLyuTvqHy",
+    "masterKey" : "Mwr01zK8ULqWsNPScLrCPF1AkLoAmoXV7Syi9hTf"
+  }
+}

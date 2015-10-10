@@ -29,5 +29,8 @@
   "bugs": {
     "url": "https://github.com/mmartinic/mOSkito/issues"
   },
-  "homepage": "https://github.com/mmartinic/mOSkito"
+  "homepage": "https://github.com/mmartinic/mOSkito",
+  "dependencies": {
+    "node-parse-api": "~0.3.8"
+  }
 }

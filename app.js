@@ -1,7 +1,8 @@
 var restify = require('restify');
+var config = require('./config/config.json');
 
-var server = restify.createServer();
-var port = process.env.PORT || 8080;
+var server = restify.createServer({name: config.server.name});
+var port = process.env.PORT || config.server.port;
 
 require('./routes')(server);
 
