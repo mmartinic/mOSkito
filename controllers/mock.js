@@ -35,14 +35,24 @@ MockController.getRandomCoordInRadius = function(center, radius) {
     return new MockCoords(this.getRandomArbitrary(center.lat - radius / 2, center.lat + radius / 2), this.getRandomArbitrary(center.long - radius / 2, center.long + radius / 2))
 };
 
+MockController.generate1 = function() {
+    var coords = [];
+    for (var i = 0; i < 1000; i++) {
+        coords[i] = this.getRandomCoord();
+    }
+    return coords;
+};
+
 MockController.generate = function() {
     var coords = [];
-    for (var i = 0; i < 7; i++) {
+    var k = 0;
+    for (var i = 0; i < 10; i++) {
         var center = this.getRandomCoord();
-        var radius = this.getRandomArbitrary(0.03371/6, 0.03371/3);
-        var number = this.getRandomArbitrary(50, 200);
+        var radius = this.getRandomArbitrary(0.03371/4, 0.03371/2);
+        var number = this.getRandomArbitrary(80, 120);
         for(var j = 0; j < number; j++) {
-            coords[j] = this.getRandomCoordInRadius(center, radius);
+            coords[k] = this.getRandomCoordInRadius(center, radius);
+            k++;
         }
     }
     return coords;

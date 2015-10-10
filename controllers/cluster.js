@@ -6,7 +6,7 @@ var _ = require('lodash');
 
 ClusterController.getClusters = function getClusters(req, res, next) {
     BiteService.getBites(10000).then(function (data) {
-        var bias = 0.5;
+        var bias = 1.5;
         var clusters = geocluster(_.map(data.results, function(bite) {
             return [bite.geo.latitude, bite.geo.longitude];
         }), bias);
