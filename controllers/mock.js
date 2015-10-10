@@ -1,12 +1,23 @@
 var MockController  = function MockController (){};
 
 var BiteService = require('../services/bite_service');
+var TrapService = require('../services/trap_service');
 
-MockController.postMock = function getMain(req, res, next) {
+MockController.postMockBites = function getMain(req, res, next) {
 
-    var mockData = MockController.generate();
+    var mockData = MockController.generateBites();
     for(var i = 0; i < mockData.length; i++) {
         BiteService.saveBite("1Ah61LeHbf", mockData[i].lat, mockData[i].long);
+    }
+    res.json(mockData);
+    next();
+};
+
+MockController.postMockTraps = function getMain(req, res, next) {
+
+    var mockData = MockController.generateTraps();
+    for(var i = 0; i < mockData.length; i++) {
+        TrapService.saveTrap("1Ah61LeHbf", mockData[i].lat, mockData[i].long, "active");
     }
     res.json(mockData);
     next();
@@ -35,15 +46,15 @@ MockController.getRandomCoordInRadius = function(center, radius) {
     return new MockCoords(this.getRandomArbitrary(center.lat - radius / 2, center.lat + radius / 2), this.getRandomArbitrary(center.long - radius / 2, center.long + radius / 2))
 };
 
-MockController.generate1 = function() {
+MockController.generateTraps = function() {
     var coords = [];
-    for (var i = 0; i < 1000; i++) {
+    for (var i = 0; i < 10; i++) {
         coords[i] = this.getRandomCoord();
     }
     return coords;
 };
 
-MockController.generate = function() {
+MockController.generateBites = function() {
     var coords = [];
     var k = 0;
     for (var i = 0; i < 10; i++) {

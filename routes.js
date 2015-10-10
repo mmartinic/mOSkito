@@ -9,7 +9,8 @@ var ROUTE_URLS = {
   getMain: API_BASE_URL + 'main',
   createBite : API_BASE_URL + 'bites',
   getBites : API_BASE_URL + 'bites',
-  postMock: API_BASE_URL + 'mock',
+  postMockBites: API_BASE_URL + 'mockBites',
+  postMockTraps: API_BASE_URL + 'mockTraps',
   getClusters: API_BASE_URL + 'clusters',
   getTraps : API_BASE_URL + 'traps',
   getTrap : API_BASE_URL + 'traps/:id',
@@ -23,7 +24,8 @@ module.exports = function (server) {
   //create a bite
   server.post(ROUTE_URLS.createBite, BiteController.createBite);
   server.get(ROUTE_URLS.getBites, BiteController.getBites);
-  server.post(ROUTE_URLS.postMock, MockController.postMock);
+  server.post(ROUTE_URLS.postMockBites, MockController.postMockBites);
+  server.post(ROUTE_URLS.postMockTraps, MockController.postMockTraps);
   server.get(ROUTE_URLS.getClusters, ClusterController.getClusters);
   server.get(ROUTE_URLS.getTraps, TrapController.getTraps);
   server.get(ROUTE_URLS.getTrap, TrapController.getTrap);
