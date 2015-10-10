@@ -15,7 +15,8 @@
     "node": "0.12.2"
   },
   "dependencies": {
-    "restify": "^4.0.3"
+    "node-parse-api": "~0.3.8",
+    "rsvp": "~3.1.0"
   },
   "keywords": [
     "Mosquito",
@@ -29,8 +30,5 @@
   "bugs": {
     "url": "https://github.com/mmartinic/mOSkito/issues"
   },
-  "homepage": "https://github.com/mmartinic/mOSkito",
-  "dependencies": {
-    "node-parse-api": "~0.3.8"
-  }
+  "homepage": "https://github.com/mmartinic/mOSkito"
 }
