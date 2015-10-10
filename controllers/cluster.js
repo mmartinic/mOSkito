@@ -23,7 +23,7 @@ ClusterController.getClusters = function getClusters(req, res, next) {
 
             var distanceSetFiltered = distanceSet.iqr();
 
-            var radius = distanceSetFiltered.max;
+            var radius = distanceSetFiltered.max * 1000;
 
             return ClusterModel.createCluster(cluster.centroid[0], cluster.centroid[1], radius, cluster.elements.length);
         });
