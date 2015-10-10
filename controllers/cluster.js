@@ -11,7 +11,10 @@ ClusterController.getClusters = function getClusters(req, res, next) {
             return [bite.geo.latitude, bite.geo.longitude];
         }), bias);
         var response = _.map(clusters, function (cluster) {
-            return ClusterModel.createCluster(cluster.centroid, cluster.centroid, 1, cluster.elements.length);
+            var radius = _.max(_.map(cluster.elements, function(element){
+                return dist(element[0], cluster.centroid[0], element[1], cluster.centroid[1])
+            }));
+            return ClusterModel.createCluster(cluster.centroid[0], cluster.centroid[1], radius, cluster.elements.length);
         });
 
         res.json(response);
@@ -28,5 +31,13 @@ function errorHandle(err, res, next) {
     res.send(err);
     return next(false);
 }
+
+// geodetic distance approximation
+function dist(lat1, lon1, lat2, lon2) {
+    var dlat = (lat2 - lat1).toRad();
+    var dlon = (lon2 - lon1).toRad();
+    var a = (Math.sin(dlat/2) * Math.sin(dlat/2) + Math.sin(dlon/2) * Math.sin(dlon/2) * Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()));
+    return (Math.round(((2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a))) * 6371)*100)/100);
+};
 
 module.exports = ClusterController;
