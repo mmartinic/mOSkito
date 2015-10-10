@@ -1,0 +1,26 @@
+{
+  "name": "mOSkito-api",
+  "version": "0.0.0",
+  "description": "Os hackathon mOSkito API",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mmartinic/mOSkito"
+  },
+  "keywords": [
+    "Mosquito",
+    "Api",
+    "Maps",
+    "Action",
+    "Tutorials"
+  ],
+  "author": "mihovil.rister@gmail,  mmartinic@fiveminutes.eu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mmartinic/mOSkito/issues"
+  },
+  "homepage": "https://github.com/mmartinic/mOSkito"
+}
