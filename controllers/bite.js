@@ -1,6 +1,8 @@
-var BiteController = function BiteController() {};
+var BiteController = function BiteController() {
+};
 var BiteService = require('../services/bite_service');
-var _= require('lodash');
+var BiteModel = require('../models/bite');
+var _ = require('lodash');
 var restify = require('restify');
 
 BiteController.createBite = function createBite(req, res, next) {
@@ -22,14 +24,42 @@ BiteController.createBite = function createBite(req, res, next) {
   return BiteService.saveBite(userId, lat, long)
     .then(function (response) {
       res.json(response);
-      next()
+      next();
     })
-    .catch(function (err){
-      err.statusCode = err.statusCode || 500;
-      res.send(err);
-      next(false);
+    .catch(function (err) {
+      return errorHandle(err, res, next);
     });
 
 };
+
+BiteController.getBites = function getBites(req, res, next) {
+
+  var limit = req.query.limit;
+
+  return BiteService.getBites(limit)
+    .then(function (data) {
+      var response =
+      {
+        total: data.count,
+        returned: data.results ? data.results.length : 0,
+        bites: _.map(data.results, BiteModel.getBite)
+      };
+
+      res.json(response);
+      next();
+    })
+    .catch(function (err) {
+      return errorHandle(err, res, next);
+    });
+
+};
+
+//helpers
+
+function errorHandle(err, res, next) {
+  err.statusCode = err.statusCode || 500;
+  res.send(err);
+  return next(false);
+}
 
 module.exports = BiteController;
