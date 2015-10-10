@@ -4,11 +4,15 @@
   "description": "Os hackathon mOSkito API",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "test"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/mmartinic/mOSkito"
+  },
+  "engines": {
+    "node": "0.12.2"
   },
   "keywords": [
     "Mosquito",
