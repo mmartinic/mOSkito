@@ -4,8 +4,8 @@ BiteModel.getBite = function create(parseBite) {
 
   return {
     userId: parseBite.user.objectId,
-    long: parseBite.geo.longitude,
-    lat: parseBite.geo.latitude
+    lat: parseBite.geo.latitude,
+    long: parseBite.geo.longitude
   };
 };
 
