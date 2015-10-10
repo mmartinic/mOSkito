@@ -1,22 +1,32 @@
 var ClusterController = function ClusterController() {};
 var ClusterModel = require('../models/cluster');
-var MockController = require('../controllers/mock');
+var BiteService = require('../services/bite_service');
 var geocluster = require("geocluster");
+var _ = require('lodash');
 
 ClusterController.getClusters = function getClusters(req, res, next) {
+    BiteService.getBites(10000).then(function (data) {
+        var bias = 0.5;
+        var clusters = geocluster(_.map(data.results, function(bite) {
+            return [bite.geo.latitude, bite.geo.longitude];
+        }), bias);
+        var response = _.map(clusters, function (cluster) {
+            return ClusterModel.createCluster(cluster.centroid, cluster.centroid, 1, cluster.elements.length);
+        });
 
-    var coordinates = MockController.generate();
-    for(var i = 0; i < coordinates.length; i++) {
-        coordinates[i] = [coordinates[i].lat, coordinates[i].long];
-    }
-
-    var bias = 1.5; // multiply stdev with this factor, the smaller the more clusters
-    var clusters = geocluster(coordinates, bias);
-    for(var i = 0; i < clusters.length; i++) {
-        clusters[i] = ClusterModel.createCluster(clusters[i].centroid[0], clusters[i].centroid[1], 1, clusters[i].elements.length);
-    }
-    res.json(clusters);
-    next();
+        res.json(response);
+        next();
+    }).catch(function (err) {
+        return errorHandle(err, res, next);
+    });
 };
+
+//helpers
+
+function errorHandle(err, res, next) {
+    err.statusCode = err.statusCode || 500;
+    res.send(err);
+    return next(false);
+}
 
 module.exports = ClusterController;

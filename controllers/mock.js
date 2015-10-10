@@ -37,10 +37,10 @@ MockController.getRandomCoordInRadius = function(center, radius) {
 
 MockController.generate = function() {
     var coords = [];
-    for (var i = 0; i < 15; i++) {
+    for (var i = 0; i < 7; i++) {
         var center = this.getRandomCoord();
         var radius = this.getRandomArbitrary(0.03371/6, 0.03371/3);
-        var number = this.getRandomArbitrary(1000, 10000);
+        var number = this.getRandomArbitrary(50, 200);
         for(var j = 0; j < number; j++) {
             coords[j] = this.getRandomCoordInRadius(center, radius);
         }
