@@ -1,13 +1,15 @@
-var MainController = require('./controllers/main');
+var BiteController = require('./controllers/bite');
 
 var API_BASE_URL = '/api/';
 
 var ROUTE_URLS = {
-  getMain: API_BASE_URL + 'main'
+  getMain: API_BASE_URL + 'main',
+  createBite : API_BASE_URL + 'bites'
 };
 
 module.exports = function (server) {
 
-  server.get(ROUTE_URLS.getMain, MainController.getMain);
+  //create a bite
+  server.post(ROUTE_URLS.createBite, BiteController.createBite);
 
 };

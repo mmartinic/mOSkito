@@ -1,6 +1,6 @@
 var BiteService = function BiteService(){};
 var Bite = require('../models/bite');
-var parseApp = require('../helpers/parseApp');
+var parseApp = require('../helpers/parse_app');
 var rsvp = require('rsvp');
 
 BiteService.saveBite = function saveBite(userId, lat, long){
