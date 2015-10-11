@@ -11,15 +11,18 @@ var port = process.env.PORT || config.server.port;
 server.use(restify.dateParser());
 server.use(restify.queryParser());
 server.use(restify.jsonp());
+server.use(restify.CORS());
 server.use(restify.gzipResponse());
 server.use(restify.bodyParser());
 server.use(restify.fullResponse());
 
-server.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+server.use(
+  function crossOrigin(req,res,next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    return next();
+  }
+);
 
 require('./routes')(server, io);
 
