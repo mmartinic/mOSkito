@@ -5,7 +5,7 @@ var socketio = require('socket.io');
 
 var server = restify.createServer({name: config.server.name});
 var io = socketio.listen(server.server);
-io.set( 'origins', '*herokuapp.com*:*' );
+io.set( {origins:'herokuapp.com:* http://herokuapp.com:* http://moskito-web.herokuapp.com/:* https://moskito-web.herokuapp.com/:*'});
 
 var port = process.env.PORT || config.server.port;
 
@@ -21,7 +21,10 @@ server.use(
   function crossOrigin(req,res,next){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    return next();
+    res.header("Access-Control-Allow-Headers", "Content-Type");
+    res.header("Access-Control-Allow-Methods", "PUT, GET, POST, DELETE, OPTIONS");
+    next();
+
   }
 );
 
