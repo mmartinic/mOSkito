@@ -17,7 +17,7 @@ server.use(restify.gzipResponse());
 server.use(restify.bodyParser());
 server.use(restify.fullResponse());
 
-server.after(
+server.on( 'after',
   function crossOrigin(req,res){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
