@@ -5,6 +5,7 @@ var socketio = require('socket.io');
 
 var server = restify.createServer({name: config.server.name});
 var io = socketio.listen(server.server);
+io.set( 'origins', '*herokuapp.com*:*' );
 
 var port = process.env.PORT || config.server.port;
 
