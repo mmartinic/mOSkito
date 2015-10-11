@@ -5,6 +5,11 @@ var BiteModel = require('../models/bite');
 var _ = require('lodash');
 var restify = require('restify');
 
+BiteController.setIo = function setIo(io){
+  BiteController.io = io;
+  return BiteController;
+};
+
 BiteController.createBite = function createBite(req, res, next) {
 
   var userId = req.params.userId || '';
@@ -23,6 +28,7 @@ BiteController.createBite = function createBite(req, res, next) {
 
   return BiteService.saveBite(userId, lat, long)
     .then(function (response) {
+      BiteController.io.emit('bite',  {lat: lat, long: long});
       res.json(response);
       next();
     })

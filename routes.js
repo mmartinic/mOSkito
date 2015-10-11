@@ -19,10 +19,10 @@ var ROUTE_URLS = {
   createTrap : API_BASE_URL + 'traps'
 };
 
-module.exports = function (server) {
+module.exports = function (server, io) {
 
   //create a bite
-  server.post(ROUTE_URLS.createBite, BiteController.createBite);
+  server.post(ROUTE_URLS.createBite, BiteController.setIo(io).createBite);
   server.get(ROUTE_URLS.getBites, BiteController.getBites);
   server.post(ROUTE_URLS.postMockBites, MockController.postMockBites);
   server.post(ROUTE_URLS.postMockTraps, MockController.postMockTraps);
