@@ -5,21 +5,13 @@ var socketio = require('socket.io');
 
 var server = restify.createServer({name: config.server.name});
 var io = socketio.listen(server.server);
-io.set({origins: 'herokuapp.com:* http://herokuapp.com:* http://moskito-web.herokuapp.com/:* https://moskito-web.herokuapp.com/:*'});
-io.set('transports', [
-  'websocket'
-  , 'flashsocket'
-  , 'htmlfile'
-  , 'xhr-polling'
-  , 'jsonp-polling'
-]);
+io.set('origins',  '*:*');
 
 var port = process.env.PORT || config.server.port;
 
 server.use(restify.dateParser());
 server.use(restify.queryParser());
 server.use(restify.jsonp());
-server.use(restify.CORS());
 server.use(restify.gzipResponse());
 server.use(restify.bodyParser());
 server.use(restify.fullResponse());
@@ -28,6 +20,7 @@ server.get(/socket[.]io[.]js$/, function (req, res, next) {
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.setHeader('Access-Control-Allow-Credentials', 'false');
 
   fs.readFile('socket.io.js', function (err, file) {
     if (err) {
