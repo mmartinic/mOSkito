@@ -6,8 +6,10 @@ var _ = require('lodash');
 var Stats = require('fast-stats').Stats;
 
 ClusterController.getClusters = function getClusters(req, res, next) {
+    var bias = req.query.bias;
+    var bias =  bias ? parseFloat(bias) : 1.5;
+
     BiteService.getBites(10000).then(function (data) {
-        var bias = 1.5;
         var clusters = geocluster(_.map(data.results, function(bite) {
             return [bite.geo.latitude, bite.geo.longitude];
         }), bias);
